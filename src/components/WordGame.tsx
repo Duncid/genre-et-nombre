@@ -99,15 +99,24 @@ const WordGame = ({ onBack }: WordGameProps) => {
 
       <div className="flex flex-1 flex-col items-center justify-center gap-6 p-6">
         <div
-          className={`game-pop flex h-48 w-64 items-center justify-center rounded-3xl bg-card shadow-xl ring-4 transition-all sm:h-56 sm:w-80 ${
+          className={`game-pop flex h-48 w-64 items-center justify-center transition-all sm:h-56 sm:w-80 ${
             feedback === "correct"
-              ? "ring-game-success game-bounce"
+              ? "game-bounce"
               : feedback === "wrong"
-              ? "ring-game-error game-shake"
-              : "ring-transparent"
+              ? "game-shake"
+              : ""
           }`}
         >
-          <span className="text-4xl font-bold sm:text-5xl" style={{ fontFamily: '"Belle Allure", cursive' }}>
+          <span
+            className={`text-4xl font-bold sm:text-5xl transition-colors ${
+              feedback === "correct"
+                ? "text-game-success"
+                : feedback === "wrong"
+                ? "text-game-error"
+                : "text-foreground"
+            }`}
+            style={{ fontFamily: '"Belle Allure", cursive' }}
+          >
             {displayWord}
           </span>
         </div>
