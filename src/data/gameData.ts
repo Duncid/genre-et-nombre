@@ -68,3 +68,33 @@ export const numberItems: NumberItem[] = [
   { name: "voiture", image: voiture, number: "singulier", label: "une voiture" },
   { name: "voitures", image: voitures, number: "pluriel", label: "des voitures" },
 ];
+
+export interface MixItem {
+  name: string;
+  image: string;
+  gender: Gender;
+  number: NumberType;
+  label: string;
+}
+
+export const mixItems: MixItem[] = [
+  { name: "pomme", image: pomme, gender: "féminin", number: "singulier", label: "une pomme" },
+  { name: "pommes", image: pommes, gender: "féminin", number: "pluriel", label: "des pommes" },
+  { name: "livre", image: livre, gender: "masculin", number: "singulier", label: "un livre" },
+  { name: "livres", image: livres, gender: "masculin", number: "pluriel", label: "des livres" },
+  { name: "soleil", image: soleil, gender: "masculin", number: "singulier", label: "le soleil" },
+  { name: "étoile", image: etoile, gender: "féminin", number: "singulier", label: "une étoile" },
+  { name: "étoiles", image: etoiles, gender: "féminin", number: "pluriel", label: "des étoiles" },
+  { name: "maison", image: maison, gender: "féminin", number: "singulier", label: "une maison" },
+  { name: "voiture", image: voiture, gender: "féminin", number: "singulier", label: "une voiture" },
+  { name: "voitures", image: voitures, gender: "féminin", number: "pluriel", label: "des voitures" },
+  { name: "arbre", image: arbre, gender: "masculin", number: "singulier", label: "un arbre" },
+  { name: "arbres", image: arbres, gender: "masculin", number: "pluriel", label: "des arbres" },
+  { name: "fleur", image: fleur, gender: "féminin", number: "singulier", label: "une fleur" },
+  { name: "fleurs", image: fleurs, gender: "féminin", number: "pluriel", label: "des fleurs" },
+  { name: "chat", image: chat, gender: "masculin", number: "singulier", label: "un chat" },
+  { name: "chats", image: chats, gender: "masculin", number: "pluriel", label: "des chats" },
+  { name: "table", image: table, gender: "féminin", number: "singulier", label: "une table" },
+  { name: "lune", image: lune, gender: "féminin", number: "singulier", label: "la lune" },
+  { name: "porte", image: porte, gender: "féminin", number: "singulier", label: "une porte" },
+];

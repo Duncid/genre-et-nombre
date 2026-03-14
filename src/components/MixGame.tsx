@@ -117,12 +117,12 @@ const MixGame = ({ onBack }: MixGameProps) => {
         <div className="h-8 text-center">
           {feedback === "correct" && (
             <p className="text-xl font-bold text-game-success game-pop">
-              ✅ Correct ! C'est {current.article} {current.name}
+              ✅ Correct ! C'est « {current.label} »
             </p>
           )}
           {feedback === "wrong" && (
             <p className="text-xl font-bold text-game-error game-pop">
-              ❌ Non ! C'est {current.article} {current.name} ({current.gender}, singulier)
+              ❌ Non ! C'est « {current.label} » ({current.gender}, {current.number})
             </p>
           )}
         </div>
