@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { genderItems, type Gender } from "@/data/gameData";
-import type { NumberType } from "@/data/gameData";
+import { mixItems, type Gender, type NumberType } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
 
 function shuffle<T>(arr: T[]): T[] {
