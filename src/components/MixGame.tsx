@@ -16,7 +16,7 @@ interface MixGameProps {
 }
 
 const MixGame = ({ onBack }: MixGameProps) => {
-  const queue = useMemo(() => shuffle(genderItems), []);
+  const queue = useMemo(() => shuffle(mixItems), []);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [genderAnswer, setGenderAnswer] = useState<Gender | null>(null);
