@@ -16,7 +16,7 @@ interface WordGameProps {
 }
 
 const WordGame = ({ onBack }: WordGameProps) => {
-  const queue = useMemo(() => shuffle(mixItems), []);
+  const queue = useMemo(() => shuffle(wordItems), []);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [genderAnswer, setGenderAnswer] = useState<Gender | null>(null);
