@@ -1,7 +1,7 @@
-import { BookOpen, Users } from "lucide-react";
+import { BookOpen, Users, Shuffle } from "lucide-react";
 
 interface GameMenuProps {
-  onSelectMode: (mode: "gender" | "number") => void;
+  onSelectMode: (mode: "gender" | "number" | "mix") => void;
 }
 
 const GameMenu = ({ onSelectMode }: GameMenuProps) => {
@@ -44,6 +44,21 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
           </span>
           <span className="text-sm text-muted-foreground">
             Un ou plusieurs ?
+          </span>
+        </button>
+
+        <button
+          onClick={() => onSelectMode("mix")}
+          className="group flex flex-col items-center gap-3 rounded-2xl bg-card p-8 shadow-lg ring-2 ring-primary/30 transition-all hover:scale-105 hover:shadow-xl hover:ring-primary active:scale-95 min-w-[220px]"
+        >
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+            <Shuffle className="h-8 w-8 text-primary" />
+          </div>
+          <span className="text-xl font-bold font-display">
+            Mode Mixte
+          </span>
+          <span className="text-sm text-muted-foreground">
+            Genre + Nombre
           </span>
         </button>
       </div>
