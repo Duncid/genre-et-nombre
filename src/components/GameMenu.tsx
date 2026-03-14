@@ -7,15 +7,6 @@ interface GameMenuProps {
 const GameMenu = ({ onSelectMode }: GameMenuProps) => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 p-6">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold tracking-tight md:text-7xl">
-          🇫🇷 Jeu de Français
-        </h1>
-        <p className="mt-4 text-lg text-muted-foreground font-semibold">
-          Apprends la grammaire en t'amusant !
-        </p>
-      </div>
-
       <div className="grid grid-cols-2 gap-5 w-full max-w-xl">
         <button
           onClick={() => onSelectMode("gender")}
@@ -24,12 +15,8 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-game-feminine/10">
             <BookOpen className="h-8 w-8 text-game-feminine" />
           </div>
-          <span className="text-xl font-bold font-display">
-            Féminin / Masculin
-          </span>
-          <span className="text-sm text-muted-foreground">
-            UN ou UNE ?
-          </span>
+          <span className="text-xl font-bold font-display">Féminin / Masculin</span>
+          <span className="text-sm text-muted-foreground">UN ou UNE ?</span>
         </button>
 
         <button
@@ -39,12 +26,8 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-game-singular/10">
             <Users className="h-8 w-8 text-game-singular" />
           </div>
-          <span className="text-xl font-bold font-display">
-            Singulier / Pluriel
-          </span>
-          <span className="text-sm text-muted-foreground">
-            Un ou plusieurs ?
-          </span>
+          <span className="text-xl font-bold font-display">Singulier / Pluriel</span>
+          <span className="text-sm text-muted-foreground">Un ou plusieurs ?</span>
         </button>
 
         <button
@@ -54,12 +37,8 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
             <Shuffle className="h-8 w-8 text-primary" />
           </div>
-          <span className="text-xl font-bold font-display">
-            Mode Mixte
-          </span>
-          <span className="text-sm text-muted-foreground">
-            Genre + Nombre
-          </span>
+          <span className="text-xl font-bold font-display">Mode Mixte</span>
+          <span className="text-sm text-muted-foreground">Genre + Nombre</span>
         </button>
         <button
           onClick={() => onSelectMode("words")}
@@ -68,12 +47,8 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
             <Type className="h-8 w-8 text-accent-foreground" />
           </div>
-          <span className="text-xl font-bold font-display">
-            Mode Mots
-          </span>
-          <span className="text-sm text-muted-foreground">
-            Mots écrits
-          </span>
+          <span className="text-xl font-bold font-display">Mode Mots</span>
+          <span className="text-sm text-muted-foreground">Mots écrits</span>
         </button>
       </div>
     </div>
