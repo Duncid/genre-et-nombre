@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { mixItems, type Gender, type NumberType } from "@/data/gameData";
+import { wordItems, type Gender, type NumberType } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
 
 function shuffle<T>(arr: T[]): T[] {
@@ -16,7 +16,7 @@ interface WordGameProps {
 }
 
 const WordGame = ({ onBack }: WordGameProps) => {
-  const queue = useMemo(() => shuffle(mixItems), []);
+  const queue = useMemo(() => shuffle(wordItems), []);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [genderAnswer, setGenderAnswer] = useState<Gender | null>(null);
@@ -85,8 +85,8 @@ const WordGame = ({ onBack }: WordGameProps) => {
 
   if (!current) return null;
 
-  // Display name: capitalize first letter
-  const displayWord = current.name.charAt(0).toUpperCase() + current.name.slice(1);
+  // Display the word with article
+  const displayWord = current.word.charAt(0).toUpperCase() + current.word.slice(1);
 
   return (
     <div className="flex min-h-screen flex-col">

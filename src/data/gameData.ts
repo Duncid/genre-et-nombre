@@ -98,3 +98,51 @@ export const mixItems: MixItem[] = [
   { name: "lune", image: lune, gender: "féminin", number: "singulier", label: "la lune" },
   { name: "porte", image: porte, gender: "féminin", number: "singulier", label: "une porte" },
 ];
+
+export interface WordItem {
+  word: string;
+  gender: Gender;
+  number: NumberType;
+  label: string;
+}
+
+export const wordItems: WordItem[] = [
+  // un / une (singulier, indéfini)
+  { word: "une pomme", gender: "féminin", number: "singulier", label: "une pomme" },
+  { word: "un livre", gender: "masculin", number: "singulier", label: "un livre" },
+  { word: "une étoile", gender: "féminin", number: "singulier", label: "une étoile" },
+  { word: "un arbre", gender: "masculin", number: "singulier", label: "un arbre" },
+  { word: "une fleur", gender: "féminin", number: "singulier", label: "une fleur" },
+  { word: "un chat", gender: "masculin", number: "singulier", label: "un chat" },
+  { word: "une maison", gender: "féminin", number: "singulier", label: "une maison" },
+  { word: "une voiture", gender: "féminin", number: "singulier", label: "une voiture" },
+  { word: "une table", gender: "féminin", number: "singulier", label: "une table" },
+  { word: "une porte", gender: "féminin", number: "singulier", label: "une porte" },
+  // le / la (singulier, défini)
+  { word: "le soleil", gender: "masculin", number: "singulier", label: "le soleil" },
+  { word: "la lune", gender: "féminin", number: "singulier", label: "la lune" },
+  { word: "la pomme", gender: "féminin", number: "singulier", label: "la pomme" },
+  { word: "le livre", gender: "masculin", number: "singulier", label: "le livre" },
+  { word: "la fleur", gender: "féminin", number: "singulier", label: "la fleur" },
+  { word: "le chat", gender: "masculin", number: "singulier", label: "le chat" },
+  { word: "la table", gender: "féminin", number: "singulier", label: "la table" },
+  { word: "la porte", gender: "féminin", number: "singulier", label: "la porte" },
+  { word: "la maison", gender: "féminin", number: "singulier", label: "la maison" },
+  { word: "la voiture", gender: "féminin", number: "singulier", label: "la voiture" },
+  // des (pluriel, indéfini)
+  { word: "des pommes", gender: "féminin", number: "pluriel", label: "des pommes" },
+  { word: "des livres", gender: "masculin", number: "pluriel", label: "des livres" },
+  { word: "des étoiles", gender: "féminin", number: "pluriel", label: "des étoiles" },
+  { word: "des arbres", gender: "masculin", number: "pluriel", label: "des arbres" },
+  { word: "des fleurs", gender: "féminin", number: "pluriel", label: "des fleurs" },
+  { word: "des chats", gender: "masculin", number: "pluriel", label: "des chats" },
+  { word: "des voitures", gender: "féminin", number: "pluriel", label: "des voitures" },
+  // les (pluriel, défini)
+  { word: "les pommes", gender: "féminin", number: "pluriel", label: "les pommes" },
+  { word: "les livres", gender: "masculin", number: "pluriel", label: "les livres" },
+  { word: "les étoiles", gender: "féminin", number: "pluriel", label: "les étoiles" },
+  { word: "les arbres", gender: "masculin", number: "pluriel", label: "les arbres" },
+  { word: "les fleurs", gender: "féminin", number: "pluriel", label: "les fleurs" },
+  { word: "les chats", gender: "masculin", number: "pluriel", label: "les chats" },
+  { word: "les voitures", gender: "féminin", number: "pluriel", label: "les voitures" },
+];

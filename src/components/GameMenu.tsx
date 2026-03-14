@@ -16,7 +16,7 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-5 sm:flex-row">
+      <div className="grid grid-cols-2 gap-5 w-full max-w-xl">
         <button
           onClick={() => onSelectMode("gender")}
           className="group flex flex-col items-center gap-3 rounded-2xl bg-card p-8 shadow-lg ring-2 ring-game-feminine/30 transition-all hover:scale-105 hover:shadow-xl hover:ring-game-feminine active:scale-95 min-w-[220px]"
