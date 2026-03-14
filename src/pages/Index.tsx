@@ -3,8 +3,9 @@ import GameMenu from "@/components/GameMenu";
 import GenderGame from "@/components/GenderGame";
 import NumberGame from "@/components/NumberGame";
 import MixGame from "@/components/MixGame";
+import WordGame from "@/components/WordGame";
 
-type GameMode = "menu" | "gender" | "number" | "mix";
+type GameMode = "menu" | "gender" | "number" | "mix" | "words";
 
 const Index = () => {
   const [mode, setMode] = useState<GameMode>("menu");
