@@ -1,14 +1,16 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import GameMenu from "@/components/GameMenu";
+import GenderGame from "@/components/GenderGame";
+import NumberGame from "@/components/NumberGame";
+
+type GameMode = "menu" | "gender" | "number";
 
 const Index = () => {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [mode, setMode] = useState<GameMode>("menu");
+
+  if (mode === "gender") return <GenderGame onBack={() => setMode("menu")} />;
+  if (mode === "number") return <NumberGame onBack={() => setMode("menu")} />;
+  return <GameMenu onSelectMode={setMode} />;
 };
 
 export default Index;
