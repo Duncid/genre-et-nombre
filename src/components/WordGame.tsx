@@ -107,7 +107,7 @@ const WordGame = ({ onBack }: WordGameProps) => {
               : "ring-transparent"
           }`}
         >
-          <span className="font-display text-4xl font-bold sm:text-5xl">
+          <span className="text-4xl font-bold sm:text-5xl" style={{ fontFamily: '"Belle Allure", cursive' }}>
             {displayWord}
           </span>
         </div>
