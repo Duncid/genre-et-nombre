@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { genderItems, type Gender } from "@/data/gameData";
-import type { NumberType } from "@/data/gameData";
+import { mixItems, type Gender, type NumberType } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
 
 function shuffle<T>(arr: T[]): T[] {
@@ -17,7 +16,7 @@ interface MixGameProps {
 }
 
 const MixGame = ({ onBack }: MixGameProps) => {
-  const queue = useMemo(() => shuffle(genderItems), []);
+  const queue = useMemo(() => shuffle(mixItems), []);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [genderAnswer, setGenderAnswer] = useState<Gender | null>(null);
@@ -32,8 +31,7 @@ const MixGame = ({ onBack }: MixGameProps) => {
       if (!gender || !number || feedback || !current) return;
 
       const genderCorrect = gender === current.gender;
-      // All items in genderItems are singular
-      const numberCorrect = number === "singulier";
+      const numberCorrect = number === current.number;
       const correct = genderCorrect && numberCorrect;
 
       if (correct) setScore((s) => s + 1);
@@ -119,12 +117,12 @@ const MixGame = ({ onBack }: MixGameProps) => {
         <div className="h-8 text-center">
           {feedback === "correct" && (
             <p className="text-xl font-bold text-game-success game-pop">
-              ✅ Correct ! C'est {current.article} {current.name}
+              ✅ Correct ! C'est « {current.label} »
             </p>
           )}
           {feedback === "wrong" && (
             <p className="text-xl font-bold text-game-error game-pop">
-              ❌ Non ! C'est {current.article} {current.name} ({current.gender}, singulier)
+              ❌ Non ! C'est « {current.label} » ({current.gender}, {current.number})
             </p>
           )}
         </div>
