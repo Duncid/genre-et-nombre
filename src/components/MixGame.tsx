@@ -31,8 +31,7 @@ const MixGame = ({ onBack }: MixGameProps) => {
       if (!gender || !number || feedback || !current) return;
 
       const genderCorrect = gender === current.gender;
-      // All items in genderItems are singular
-      const numberCorrect = number === "singulier";
+      const numberCorrect = number === current.number;
       const correct = genderCorrect && numberCorrect;
 
       if (correct) setScore((s) => s + 1);
