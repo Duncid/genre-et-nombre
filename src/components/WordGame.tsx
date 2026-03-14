@@ -85,8 +85,8 @@ const WordGame = ({ onBack }: WordGameProps) => {
 
   if (!current) return null;
 
-  // Display name: capitalize first letter
-  const displayWord = current.name.charAt(0).toUpperCase() + current.name.slice(1);
+  // Display the word with article
+  const displayWord = current.word.charAt(0).toUpperCase() + current.word.slice(1);
 
   return (
     <div className="flex min-h-screen flex-col">
