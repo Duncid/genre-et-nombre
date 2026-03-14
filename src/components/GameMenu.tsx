@@ -61,6 +61,20 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
             Genre + Nombre
           </span>
         </button>
+        <button
+          onClick={() => onSelectMode("words")}
+          className="group flex flex-col items-center gap-3 rounded-2xl bg-card p-8 shadow-lg ring-2 ring-accent/30 transition-all hover:scale-105 hover:shadow-xl hover:ring-accent active:scale-95 min-w-[220px]"
+        >
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
+            <Type className="h-8 w-8 text-accent-foreground" />
+          </div>
+          <span className="text-xl font-bold font-display">
+            Mode Mots
+          </span>
+          <span className="text-sm text-muted-foreground">
+            Mots écrits
+          </span>
+        </button>
       </div>
     </div>
   );
