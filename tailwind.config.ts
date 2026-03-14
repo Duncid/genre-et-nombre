@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['Fredoka', 'sans-serif'],
+        body: ['Nunito', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -46,6 +50,14 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        game: {
+          success: "hsl(var(--game-success))",
+          error: "hsl(var(--game-error))",
+          feminine: "hsl(var(--game-feminine))",
+          masculine: "hsl(var(--game-masculine))",
+          singular: "hsl(var(--game-singular))",
+          plural: "hsl(var(--game-plural))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
