@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
 
+@font-face {
+  font-family: "Belle Allure";
+  src: url("/font/BelleAllureGS-Gros.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
