@@ -13,6 +13,7 @@ const Index = () => {
   if (mode === "gender") return <GenderGame onBack={() => setMode("menu")} />;
   if (mode === "number") return <NumberGame onBack={() => setMode("menu")} />;
   if (mode === "mix") return <MixGame onBack={() => setMode("menu")} />;
+  if (mode === "words") return <WordGame onBack={() => setMode("menu")} />;
   return <GameMenu onSelectMode={setMode} />;
 };
 
