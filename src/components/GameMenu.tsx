@@ -7,7 +7,7 @@ interface GameMenuProps {
 const GameMenu = ({ onSelectMode }: GameMenuProps) => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8 p-6">
-      <div className="grid grid-cols-2 gap-3 w-full max-w-md">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-md">
         <button
           onClick={() => onSelectMode("gender")}
           className="group flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-game-feminine/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-game-feminine active:scale-95"
@@ -62,7 +62,7 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
 
         <button
           onClick={() => onSelectMode("adjectives")}
-          className="group col-span-2 flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-secondary/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-secondary active:scale-95"
+          className="group sm:col-span-2 flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-secondary/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-secondary active:scale-95"
         >
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary/10">
             <PenLine className="h-5 w-5 text-secondary" />
