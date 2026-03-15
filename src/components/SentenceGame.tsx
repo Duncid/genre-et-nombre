@@ -44,6 +44,7 @@ const SentenceGame = ({
   const currentSentence = queue[sentenceIndex];
   const currentWord = currentSentence?.words[wordIndex];
   const totalQuestions = queue.reduce((sum, s) => sum + s.words.length, 0);
+  const shuffledRoles = useMemo(() => shuffle([...roles]), [roles, sentenceIndex, wordIndex]);
 
   const handleChoice = useCallback(
     (choice: GrammarRole) => {
