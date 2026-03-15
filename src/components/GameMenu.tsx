@@ -62,7 +62,7 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
 
         <button
           onClick={() => onSelectMode("adjectives")}
-          className="group sm:col-span-2 flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-secondary/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-secondary active:scale-95"
+          className="group flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-secondary/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-secondary active:scale-95"
         >
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary/10">
             <PenLine className="h-5 w-5 text-secondary" />
@@ -70,6 +70,32 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
           <div className="text-left">
             <span className="text-sm font-bold font-display leading-tight block">Mots & Adjectifs</span>
             <span className="text-xs text-muted-foreground">les grands arbres</span>
+          </div>
+        </button>
+
+        <button
+          onClick={() => onSelectMode("sentence")}
+          className="group flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-game-singular/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-game-singular active:scale-95"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-game-singular/10">
+            <Layers className="h-5 w-5 text-game-singular" />
+          </div>
+          <div className="text-left">
+            <span className="text-sm font-bold font-display leading-tight block">Structure de phrase</span>
+            <span className="text-xs text-muted-foreground">dét. / adj. / nom</span>
+          </div>
+        </button>
+
+        <button
+          onClick={() => onSelectMode("sentence-advanced")}
+          className="group flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-game-plural/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-game-plural active:scale-95"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-game-plural/10">
+            <GraduationCap className="h-5 w-5 text-game-plural" />
+          </div>
+          <div className="text-left">
+            <span className="text-sm font-bold font-display leading-tight block">Structure avancée</span>
+            <span className="text-xs text-muted-foreground">verbe, pronom…</span>
           </div>
         </button>
       </div>
