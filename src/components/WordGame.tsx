@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { wordItems, type Gender, type NumberType } from "@/data/gameData";
+import { wordItems, type Gender, type NumberType, type WordItem } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
 
 function shuffle<T>(arr: T[]): T[] {
@@ -13,10 +13,13 @@ function shuffle<T>(arr: T[]): T[] {
 
 interface WordGameProps {
   onBack: () => void;
+  items?: WordItem[];
+  modeLabel?: string;
 }
 
-const WordGame = ({ onBack }: WordGameProps) => {
-  const queue = useMemo(() => shuffle(wordItems), []);
+const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => {
+  const source = items ?? wordItems;
+  const queue = useMemo(() => shuffle(source), [source]);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [genderAnswer, setGenderAnswer] = useState<Gender | null>(null);
@@ -94,7 +97,7 @@ const WordGame = ({ onBack }: WordGameProps) => {
         score={score}
         total={queue.length}
         onBack={onBack}
-        modeLabel="Mode Mots"
+        modeLabel={modeLabel}
       />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-6 p-6">
