@@ -97,7 +97,7 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
         score={score}
         total={queue.length}
         onBack={onBack}
-        modeLabel="Mode Mots"
+        modeLabel={modeLabel}
       />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-6 p-6">

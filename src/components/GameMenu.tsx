@@ -1,7 +1,7 @@
-import { BookOpen, Users, Shuffle, Type } from "lucide-react";
+import { BookOpen, Users, Shuffle, Type, PenLine } from "lucide-react";
 
 interface GameMenuProps {
-  onSelectMode: (mode: "gender" | "number" | "mix" | "words") => void;
+  onSelectMode: (mode: "gender" | "number" | "mix" | "words" | "adjectives") => void;
 }
 
 const GameMenu = ({ onSelectMode }: GameMenuProps) => {
