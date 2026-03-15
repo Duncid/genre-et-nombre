@@ -13,10 +13,13 @@ function shuffle<T>(arr: T[]): T[] {
 
 interface WordGameProps {
   onBack: () => void;
+  items?: WordItem[];
+  modeLabel?: string;
 }
 
-const WordGame = ({ onBack }: WordGameProps) => {
-  const queue = useMemo(() => shuffle(wordItems), []);
+const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => {
+  const source = items ?? wordItems;
+  const queue = useMemo(() => shuffle(source), [source]);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [genderAnswer, setGenderAnswer] = useState<Gender | null>(null);
