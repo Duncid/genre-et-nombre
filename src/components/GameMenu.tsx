@@ -59,6 +59,19 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
             <span className="text-xs text-muted-foreground">Mots écrits</span>
           </div>
         </button>
+
+        <button
+          onClick={() => onSelectMode("adjectives")}
+          className="group col-span-2 flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-secondary/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-secondary active:scale-95"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary/10">
+            <PenLine className="h-5 w-5 text-secondary" />
+          </div>
+          <div className="text-left">
+            <span className="text-sm font-bold font-display leading-tight block">Mots & Adjectifs</span>
+            <span className="text-xs text-muted-foreground">les grands arbres</span>
+          </div>
+        </button>
       </div>
     </div>
   );
