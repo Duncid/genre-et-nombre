@@ -129,7 +129,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
             Rejouer
           </button>
           <button
-            onClick={() => resetRound(undefined as unknown as number) || setTable(null)}
+            onClick={() => setTable(null)}
             className="rounded-2xl bg-card px-6 py-3 text-base font-bold shadow-lg ring-1 ring-border transition-all hover:scale-105 active:scale-95"
           >
             Changer de table
