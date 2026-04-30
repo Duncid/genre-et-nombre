@@ -5,10 +5,11 @@ import NumberGame from "@/components/NumberGame";
 import MixGame from "@/components/MixGame";
 import WordGame from "@/components/WordGame";
 import SentenceGame from "@/components/SentenceGame";
+import MultiplicationGame from "@/components/MultiplicationGame";
 import { adjectiveWordItems } from "@/data/gameData";
 import { advancedSentenceItems, advancedRoles } from "@/data/sentenceData";
 
-type GameMode = "menu" | "gender" | "number" | "mix" | "words" | "adjectives" | "sentence" | "sentence-advanced";
+type GameMode = "menu" | "gender" | "number" | "mix" | "words" | "adjectives" | "sentence" | "sentence-advanced" | "multiplication";
 
 const Index = () => {
   const [mode, setMode] = useState<GameMode>("menu");
@@ -20,6 +21,7 @@ const Index = () => {
   if (mode === "adjectives") return <WordGame onBack={() => setMode("menu")} items={adjectiveWordItems} modeLabel="Mots & Adjectifs" />;
   if (mode === "sentence") return <SentenceGame onBack={() => setMode("menu")} />;
   if (mode === "sentence-advanced") return <SentenceGame onBack={() => setMode("menu")} items={advancedSentenceItems} roles={advancedRoles} modeLabel="Structure avancée" />;
+  if (mode === "multiplication") return <MultiplicationGame onBack={() => setMode("menu")} />;
   return <GameMenu onSelectMode={setMode} />;
 };
 
