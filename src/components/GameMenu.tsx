@@ -1,7 +1,7 @@
-import { BookOpen, Users, Shuffle, Type, PenLine, Layers, GraduationCap } from "lucide-react";
+import { BookOpen, Users, Shuffle, Type, PenLine, Layers, GraduationCap, X } from "lucide-react";
 
 interface GameMenuProps {
-  onSelectMode: (mode: "gender" | "number" | "mix" | "words" | "adjectives" | "sentence" | "sentence-advanced") => void;
+  onSelectMode: (mode: "gender" | "number" | "mix" | "words" | "adjectives" | "sentence" | "sentence-advanced" | "multiplication") => void;
 }
 
 const GameMenu = ({ onSelectMode }: GameMenuProps) => {
@@ -96,6 +96,19 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
           <div className="text-left">
             <span className="text-sm font-bold font-display leading-tight block">Structure avancée</span>
             <span className="text-xs text-muted-foreground">verbe, pronom…</span>
+          </div>
+        </button>
+
+        <button
+          onClick={() => onSelectMode("multiplication")}
+          className="group flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-primary/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-primary active:scale-95"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+            <X className="h-5 w-5 text-primary" />
+          </div>
+          <div className="text-left">
+            <span className="text-sm font-bold font-display leading-tight block">Multiplications</span>
+            <span className="text-xs text-muted-foreground">tables de 2 à 5</span>
           </div>
         </button>
       </div>
