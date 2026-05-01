@@ -70,9 +70,9 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
         } else {
           setQuestionIndex((i) => i + 1);
         }
-      }, 1200);
+      }, 2200);
     },
-    [feedback, correctAnswer, questionIndex, multipliers.length]
+    [feedback, correctAnswer, questionIndex, multipliers.length, table, currentMultiplier]
   );
 
   const resetRound = (newTable?: number) => {
