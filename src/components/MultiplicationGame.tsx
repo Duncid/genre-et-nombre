@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import ScoreBar from "./ScoreBar";
 import { ArrowLeft } from "lucide-react";
-import { playCorrect, playWrong } from "@/lib/sounds";
+import { playCorrect, playWrong, speakFrench } from "@/lib/sounds";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -60,6 +60,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
       }
       setSelectedAnswer(answer);
       setFeedback(correct ? "correct" : "wrong");
+      speakFrench(`${table} fois ${currentMultiplier} égale ${correctAnswer}`, 350);
 
       setTimeout(() => {
         setFeedback(null);
@@ -69,9 +70,9 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
         } else {
           setQuestionIndex((i) => i + 1);
         }
-      }, 1200);
+      }, 2200);
     },
-    [feedback, correctAnswer, questionIndex, multipliers.length]
+    [feedback, correctAnswer, questionIndex, multipliers.length, table, currentMultiplier]
   );
 
   const resetRound = (newTable?: number) => {
