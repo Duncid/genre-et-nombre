@@ -1,7 +1,7 @@
-import { BookOpen, Users, Shuffle, Type, PenLine, Layers, GraduationCap, X } from "lucide-react";
+import { BookOpen, Users, Shuffle, Type, PenLine, Layers, GraduationCap, X, Sparkles } from "lucide-react";
 
 interface GameMenuProps {
-  onSelectMode: (mode: "gender" | "number" | "mix" | "words" | "adjectives" | "sentence" | "sentence-advanced" | "multiplication") => void;
+  onSelectMode: (mode: "gender" | "number" | "mix" | "words" | "adjectives" | "adjective-choice" | "sentence" | "sentence-advanced" | "multiplication") => void;
 }
 
 const GameMenu = ({ onSelectMode }: GameMenuProps) => {
@@ -70,6 +70,19 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
           <div className="text-left">
             <span className="text-sm font-bold font-display leading-tight block">Mots & Adjectifs</span>
             <span className="text-xs text-muted-foreground">les grands arbres</span>
+          </div>
+        </button>
+
+        <button
+          onClick={() => onSelectMode("adjective-choice")}
+          className="group flex items-center gap-3 rounded-xl bg-card p-4 shadow-md ring-1 ring-game-feminine/30 transition-all hover:scale-[1.03] hover:shadow-lg hover:ring-game-feminine active:scale-95"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-game-feminine/10">
+            <Sparkles className="h-5 w-5 text-game-feminine" />
+          </div>
+          <div className="text-left">
+            <span className="text-sm font-bold font-display leading-tight block">Choisis l'adjectif</span>
+            <span className="text-xs text-muted-foreground">accord en genre/nombre</span>
           </div>
         </button>
 
