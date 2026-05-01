@@ -60,6 +60,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
       }
       setSelectedAnswer(answer);
       setFeedback(correct ? "correct" : "wrong");
+      speakFrench(`${table} fois ${currentMultiplier} égale ${correctAnswer}`, 350);
 
       setTimeout(() => {
         setFeedback(null);
