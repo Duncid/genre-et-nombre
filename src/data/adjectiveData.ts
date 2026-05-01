@@ -70,7 +70,7 @@ const nouns: NounEntry = {
     { det: "un", noun: "crayon", adj: ["petit", "gros", "joli", "beau", "nouveau", "long", "vert", "blanc"] },
   ],
   fs: [
-    { det: "la", noun: "maison", adj: ["petite", "grande", "grosse", "jolie", "vieille", "belle", "nouvelle", "haute", "blanche"] as unknown as AdjId[] && ["petit", "grand", "gros", "joli", "vieux", "beau", "nouveau", "haut", "blanc"] },
+    { det: "la", noun: "maison", adj: ["petit", "grand", "gros", "joli", "vieux", "beau", "nouveau", "haut", "blanc"] },
     { det: "une", noun: "étoile", adj: ["petit", "grand", "gros", "joli", "beau", "blanc"] },
     { det: "la", noun: "pomme", adj: ["petit", "grand", "gros", "joli", "beau", "bon", "vert"] },
     { det: "une", noun: "fleur", adj: ["petit", "grand", "joli", "beau", "blanc", "vert"] },
