@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { genderItems, type GenderItem } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
+import { playCorrect, playWrong } from "@/lib/sounds";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -28,7 +29,12 @@ const GenderGame = ({ onBack }: GenderGameProps) => {
     (answer: "féminin" | "masculin") => {
       if (feedback || !current) return;
       const correct = answer === current.gender;
-      if (correct) setScore((s) => s + 1);
+      if (correct) {
+        setScore((s) => s + 1);
+        playCorrect();
+      } else {
+        playWrong();
+      }
       setFeedback(correct ? "correct" : "wrong");
 
       setTimeout(() => {

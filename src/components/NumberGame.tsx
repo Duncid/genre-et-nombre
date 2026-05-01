@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { numberItems, type NumberItem } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
+import { playCorrect, playWrong } from "@/lib/sounds";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -28,7 +29,12 @@ const NumberGame = ({ onBack }: NumberGameProps) => {
     (answer: "singulier" | "pluriel") => {
       if (feedback || !current) return;
       const correct = answer === current.number;
-      if (correct) setScore((s) => s + 1);
+      if (correct) {
+        setScore((s) => s + 1);
+        playCorrect();
+      } else {
+        playWrong();
+      }
       setFeedback(correct ? "correct" : "wrong");
 
       setTimeout(() => {
