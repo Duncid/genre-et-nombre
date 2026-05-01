@@ -92,7 +92,12 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
     (answer: number) => {
       if (feedback) return;
       const correct = answer === correctAnswer;
-      if (correct) setScore((s) => s + 1);
+      if (correct) {
+        setScore((s) => s + 1);
+        playCorrect();
+      } else {
+        playWrong();
+      }
       setSelectedAnswer(answer);
       setFeedback(correct ? "correct" : "wrong");
 
