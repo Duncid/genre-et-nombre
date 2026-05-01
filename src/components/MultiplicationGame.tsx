@@ -109,7 +109,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
             {AVAILABLE_TABLES.map((t) => (
               <button
                 key={t}
-                onClick={() => setTable(t)}
+                onClick={() => { setTable(t); setShowTablePreview(true); }}
                 className="flex h-28 w-28 flex-col items-center justify-center rounded-2xl bg-card shadow-lg ring-2 ring-primary/30 transition-all hover:scale-105 hover:ring-primary active:scale-95"
               >
                 <span className="text-4xl font-bold font-display text-primary">×{t}</span>
