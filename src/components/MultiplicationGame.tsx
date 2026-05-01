@@ -49,8 +49,9 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
   }, [table, currentMultiplier, questionIndex, seed]);
 
   const handleAnswer = useCallback(
-    (answer: number) => {
+    (answer: number, e?: React.MouseEvent<HTMLButtonElement>) => {
       if (feedback) return;
+      e?.currentTarget.blur();
       const correct = answer === correctAnswer;
       if (correct) {
         setScore((s) => s + 1);
@@ -210,9 +211,9 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
             return (
               <button
                 key={opt}
-                onClick={() => handleAnswer(opt)}
+                onClick={(e) => handleAnswer(opt, e)}
                 disabled={!!feedback}
-                className={`flex h-20 w-20 items-center justify-center rounded-2xl text-2xl font-bold shadow-md transition-all hover:scale-105 active:scale-95 disabled:cursor-not-allowed sm:h-24 sm:w-24 sm:text-3xl ${extra}`}
+                className={`flex h-20 w-20 items-center justify-center rounded-2xl text-2xl font-bold shadow-md transition-all hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed sm:h-24 sm:w-24 sm:text-3xl ${extra}`}
               >
                 {opt}
               </button>
