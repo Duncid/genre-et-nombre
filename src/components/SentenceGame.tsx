@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import ScoreBar from "./ScoreBar";
+import { playCorrect, playWrong } from "@/lib/sounds";
 import {
   type SentenceItem,
   type GrammarRole,
@@ -51,7 +52,12 @@ const SentenceGame = ({
       if (feedback || !currentWord) return;
 
       const correct = choice === currentWord.role;
-      if (correct) setScore((s) => s + 1);
+      if (correct) {
+        setScore((s) => s + 1);
+        playCorrect();
+      } else {
+        playWrong();
+      }
       setTotalWords((t) => t + 1);
       setFeedback(correct ? "correct" : "wrong");
 

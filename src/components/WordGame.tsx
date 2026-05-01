@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { wordItems, type Gender, type NumberType, type WordItem } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
+import { playCorrect, playWrong } from "@/lib/sounds";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -34,7 +35,12 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
       if (!gender || !number || feedback || !current) return;
 
       const correct = gender === current.gender && number === current.number;
-      if (correct) setScore((s) => s + 1);
+      if (correct) {
+        setScore((s) => s + 1);
+        playCorrect();
+      } else {
+        playWrong();
+      }
       setFeedback(correct ? "correct" : "wrong");
 
       setTimeout(() => {

@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { mixItems, type Gender, type NumberType } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
+import { playCorrect, playWrong } from "@/lib/sounds";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -34,7 +35,12 @@ const MixGame = ({ onBack }: MixGameProps) => {
       const numberCorrect = number === current.number;
       const correct = genderCorrect && numberCorrect;
 
-      if (correct) setScore((s) => s + 1);
+      if (correct) {
+        setScore((s) => s + 1);
+        playCorrect();
+      } else {
+        playWrong();
+      }
       setFeedback(correct ? "correct" : "wrong");
 
       setTimeout(() => {
