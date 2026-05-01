@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import ScoreBar from "./ScoreBar";
 import { ArrowLeft } from "lucide-react";
-import { playCorrect, playWrong } from "@/lib/sounds";
+import { playCorrect, playWrong, speakFrench } from "@/lib/sounds";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
