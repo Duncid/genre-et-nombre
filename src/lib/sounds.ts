@@ -39,3 +39,22 @@ export function playWrong() {
   // Downlifting descending tones
   playTone([311.13, 233.08], 0.22, "sawtooth");
 }
+
+export function speakFrench(text: string, delayMs = 0) {
+  if (typeof window === "undefined") return;
+  const synth = window.speechSynthesis;
+  if (!synth) return;
+  const speak = () => {
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "fr-FR";
+    utter.rate = 0.95;
+    utter.pitch = 1;
+    const voices = synth.getVoices();
+    const frVoice = voices.find((v) => v.lang.startsWith("fr"));
+    if (frVoice) utter.voice = frVoice;
+    synth.speak(utter);
+  };
+  if (delayMs > 0) setTimeout(speak, delayMs);
+  else speak();
+}
