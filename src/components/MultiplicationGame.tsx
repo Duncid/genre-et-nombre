@@ -21,6 +21,7 @@ const QUESTIONS_PER_ROUND = 10;
 
 const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
   const [table, setTable] = useState<number | null>(null);
+  const [showTablePreview, setShowTablePreview] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
@@ -108,7 +109,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
             {AVAILABLE_TABLES.map((t) => (
               <button
                 key={t}
-                onClick={() => setTable(t)}
+                onClick={() => { setTable(t); setShowTablePreview(true); }}
                 className="flex h-28 w-28 flex-col items-center justify-center rounded-2xl bg-card shadow-lg ring-2 ring-primary/30 transition-all hover:scale-105 hover:ring-primary active:scale-95"
               >
                 <span className="text-4xl font-bold font-display text-primary">×{t}</span>
@@ -116,6 +117,45 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
               </button>
             ))}
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Table preview screen
+  if (showTablePreview) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <div className="flex items-center justify-between px-4 py-3">
+          <button
+            onClick={() => { setShowTablePreview(false); setTable(null); }}
+            className="flex items-center gap-1 rounded-xl bg-card px-3 py-2 text-sm font-semibold shadow transition-all hover:scale-105 active:scale-95"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Tables
+          </button>
+          <span className="font-display text-lg font-bold">Table de {table}</span>
+          <div className="w-16" />
+        </div>
+
+        <div className="flex flex-1 flex-col items-center justify-center gap-6 p-6">
+          <div className="grid grid-cols-1 gap-2 rounded-2xl bg-card p-6 shadow-lg ring-2 ring-primary/30">
+            {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+              <div key={n} className="flex items-center justify-center gap-2 text-2xl font-bold font-display sm:text-3xl">
+                <span>{table}</span>
+                <span className="text-primary">×</span>
+                <span>{n}</span>
+                <span className="text-muted-foreground">=</span>
+                <span className="text-primary">{(table as number) * n}</span>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => setShowTablePreview(false)}
+            className="rounded-2xl bg-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95"
+          >
+            Commencer ▶
+          </button>
         </div>
       </div>
     );
