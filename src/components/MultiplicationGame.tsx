@@ -21,6 +21,7 @@ const QUESTIONS_PER_ROUND = 10;
 
 const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
   const [table, setTable] = useState<number | null>(null);
+  const [showTablePreview, setShowTablePreview] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
