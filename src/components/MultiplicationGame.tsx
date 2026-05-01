@@ -136,7 +136,12 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
             Rejouer
           </button>
           <button
-            onClick={() => setTable(null)}
+            onClick={() => {
+              setFinished(false);
+              setQuestionIndex(0);
+              setScore(0);
+              setTable(null);
+            }}
             className="rounded-2xl bg-card px-6 py-3 text-base font-bold shadow-lg ring-1 ring-border transition-all hover:scale-105 active:scale-95"
           >
             Changer de table
