@@ -148,12 +148,12 @@ const nouns: NounEntry = {
     { det: "le", noun: "pain", adj: FOOD },
     { det: "un", noun: "couteau", adj: [...OBJECT, "pointu", "dangereux"] },
     // Lieux
-    { det: "le", noun: "jardin", adj: [...PLACE, "vert", "fleuri" as never].filter(a => a !== ("fleuri" as never)) },
+    { det: "le", noun: "jardin", adj: [...PLACE, "vert"] },
     { det: "un", noun: "arbre", adj: [...PLACE, "vert", "vieux", "jeune"] },
     { det: "le", noun: "chemin", adj: [...PLACE, "long", "court", "étroit", "blanc"] },
     { det: "un", noun: "village", adj: PLACE },
     { det: "le", noun: "château", adj: [...PLACE, "vieux", "magnifique"] },
-    { det: "un", noun: "lac", adj: [...PLACE, "profond", "calme" as never].filter(a => a !== ("calme" as never)) },
+    { det: "un", noun: "lac", adj: [...PLACE, "profond"] },
   ],
   fs: [
     // Animaux
