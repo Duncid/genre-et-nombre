@@ -2,6 +2,47 @@ import { useState, useMemo, useCallback } from "react";
 import ScoreBar from "./ScoreBar";
 import { ArrowLeft } from "lucide-react";
 
+let audioCtx: AudioContext | null = null;
+function getAudioCtx() {
+  if (typeof window === "undefined") return null;
+  if (!audioCtx) {
+    const Ctx = (window.AudioContext || (window as any).webkitAudioContext);
+    if (!Ctx) return null;
+    audioCtx = new Ctx();
+  }
+  return audioCtx;
+}
+
+function playTone(frequencies: number[], duration = 0.18, type: OscillatorType = "sine") {
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  if (ctx.state === "suspended") ctx.resume();
+  const now = ctx.currentTime;
+  frequencies.forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    const start = now + i * duration;
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(0.25, start + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(start);
+    osc.stop(start + duration);
+  });
+}
+
+function playCorrect() {
+  // Uplifting major arpeggio: C5 -> E5 -> G5
+  playTone([523.25, 659.25, 783.99], 0.13, "triangle");
+}
+
+function playWrong() {
+  // Downlifting descending tones
+  playTone([311.13, 233.08], 0.22, "sawtooth");
+}
+
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
