@@ -1,38 +1,43 @@
 import type { Gender, NumberType } from "./gameData";
 
+export type AdjectivePosition = "before" | "after";
+
 export interface AdjectiveForms {
   // masculin singulier, féminin singulier, masculin pluriel, féminin pluriel
   ms: string;
   fs: string;
   mp: string;
   fp: string;
+  // Position relative to the noun in standard French usage
+  position: AdjectivePosition;
 }
 
 export interface AdjectiveExerciseItem {
-  // Phrase template with {adj} placeholder, e.g. "le {adj} chat"
+  // Phrase template with {adj} placeholder, e.g. "le {adj} chat" or "le chat {adj}"
   template: string;
-  // Determinant + noun (used for display before/after blank)
   gender: Gender;
   number: NumberType;
   adjective: AdjectiveForms;
 }
 
 export const adjectives: AdjectiveForms[] = [
-  { ms: "petit", fs: "petite", mp: "petits", fp: "petites" },
-  { ms: "grand", fs: "grande", mp: "grands", fp: "grandes" },
-  { ms: "gros", fs: "grosse", mp: "gros", fp: "grosses" },
-  { ms: "joli", fs: "jolie", mp: "jolis", fp: "jolies" },
-  { ms: "vieux", fs: "vieille", mp: "vieux", fp: "vieilles" },
-  { ms: "long", fs: "longue", mp: "longs", fp: "longues" },
-  { ms: "bon", fs: "bonne", mp: "bons", fp: "bonnes" },
-  { ms: "beau", fs: "belle", mp: "beaux", fp: "belles" },
-  { ms: "nouveau", fs: "nouvelle", mp: "nouveaux", fp: "nouvelles" },
-  { ms: "gentil", fs: "gentille", mp: "gentils", fp: "gentilles" },
-  { ms: "haut", fs: "haute", mp: "hauts", fp: "hautes" },
-  { ms: "doux", fs: "douce", mp: "doux", fp: "douces" },
-  { ms: "heureux", fs: "heureuse", mp: "heureux", fp: "heureuses" },
-  { ms: "blanc", fs: "blanche", mp: "blancs", fp: "blanches" },
-  { ms: "vert", fs: "verte", mp: "verts", fp: "vertes" },
+  // BEFORE the noun (BAGS-style: short, common)
+  { ms: "petit", fs: "petite", mp: "petits", fp: "petites", position: "before" },
+  { ms: "grand", fs: "grande", mp: "grands", fp: "grandes", position: "before" },
+  { ms: "gros", fs: "grosse", mp: "gros", fp: "grosses", position: "before" },
+  { ms: "joli", fs: "jolie", mp: "jolis", fp: "jolies", position: "before" },
+  { ms: "vieux", fs: "vieille", mp: "vieux", fp: "vieilles", position: "before" },
+  { ms: "bon", fs: "bonne", mp: "bons", fp: "bonnes", position: "before" },
+  { ms: "beau", fs: "belle", mp: "beaux", fp: "belles", position: "before" },
+  { ms: "nouveau", fs: "nouvelle", mp: "nouveaux", fp: "nouvelles", position: "before" },
+  { ms: "haut", fs: "haute", mp: "hauts", fp: "hautes", position: "before" },
+  // AFTER the noun (colors, shapes, qualities, longer adjectives)
+  { ms: "long", fs: "longue", mp: "longs", fp: "longues", position: "after" },
+  { ms: "gentil", fs: "gentille", mp: "gentils", fp: "gentilles", position: "after" },
+  { ms: "doux", fs: "douce", mp: "doux", fp: "douces", position: "after" },
+  { ms: "heureux", fs: "heureuse", mp: "heureux", fp: "heureuses", position: "after" },
+  { ms: "blanc", fs: "blanche", mp: "blancs", fp: "blanches", position: "after" },
+  { ms: "vert", fs: "verte", mp: "verts", fp: "vertes", position: "after" },
 ];
 
 interface NounEntry {
@@ -99,8 +104,12 @@ export function generateAdjectiveExercises(count = 12): AdjectiveExerciseItem[] 
     const combo = combos[i % combos.length];
     const adj = pick(adjectives);
     const noun = pick(nouns[combo.key]!);
+    const template =
+      adj.position === "before"
+        ? `${noun.det} {adj} ${noun.noun}`
+        : `${noun.det} ${noun.noun} {adj}`;
     items.push({
-      template: `${noun.det} {adj} ${noun.noun}`,
+      template,
       gender: combo.gender,
       number: combo.number,
       adjective: adj,
