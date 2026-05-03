@@ -80,7 +80,7 @@ const NumberGame = ({ onBack }: NumberGameProps) => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Singulier / Pluriel" />
+      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Combien ?" />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-7 p-5 sm:p-8">
         <div
@@ -93,7 +93,7 @@ const NumberGame = ({ onBack }: NumberGameProps) => {
           <img src={current.image} alt={current.name} className="h-40 w-40 object-contain sm:h-56 sm:w-56" />
         </div>
 
-        <p className="font-display font-semibold text-[22px] sm:text-[28px]">Combien il y en a ?</p>
+        <p className="font-display font-semibold text-[22px] sm:text-[28px]">Il y en a combien ?</p>
 
         <div className="h-6 flex items-center justify-center gap-2">
           {feedback === "correct" && (

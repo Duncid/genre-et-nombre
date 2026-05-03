@@ -19,7 +19,7 @@ interface WordGameProps {
   modeLabel?: string;
 }
 
-const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => {
+const WordGame = ({ onBack, items, modeLabel = "Je lis le mot" }: WordGameProps) => {
   const source = items ?? wordItems;
   const queue = useMemo(() => shuffle(source), [source]);
   const [index, setIndex] = useState(0);

@@ -30,7 +30,7 @@ const SentenceGame = ({
   onBack,
   items,
   roles = simpleRoles,
-  modeLabel = "Structure de phrase",
+  modeLabel = "Les rôles des mots",
 }: SentenceGameProps) => {
   const source = items ?? simpleSentenceItems;
   const queue = useMemo(() => shuffle(source), [source]);

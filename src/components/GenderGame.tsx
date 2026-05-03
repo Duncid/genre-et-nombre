@@ -80,7 +80,7 @@ const GenderGame = ({ onBack }: GenderGameProps) => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Féminin / Masculin" />
+      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Un ou une ?" />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-7 p-5 sm:p-8">
         {/* Image card */}
@@ -95,7 +95,7 @@ const GenderGame = ({ onBack }: GenderGameProps) => {
         </div>
 
         {/* Question */}
-        <p className="font-display font-semibold text-[22px] sm:text-[28px]">Cette image, c'est…</p>
+        <p className="font-display font-semibold text-[22px] sm:text-[28px]">C'est un ou une ?</p>
 
         {/* Feedback row */}
         <div className="h-6 flex items-center justify-center gap-2">

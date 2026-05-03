@@ -107,7 +107,7 @@ const AdjectiveChoiceGame = ({ onBack }: Props) => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Choisis l'adjectif" />
+      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Complète la phrase" />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-7 p-5 sm:p-8">
         <div

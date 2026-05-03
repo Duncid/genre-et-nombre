@@ -100,7 +100,7 @@ const MixGame = ({ onBack }: MixGameProps) => {
         score={score}
         total={queue.length}
         onBack={onBack}
-        modeLabel="Mode Mixte"
+        modeLabel="Défi double"
       />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-6 p-6">
