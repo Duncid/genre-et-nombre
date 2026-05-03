@@ -24,6 +24,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
   const [showTablePreview, setShowTablePreview] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [wrong, setWrong] = useState(0);
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
@@ -56,6 +57,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
         setScore((s) => s + 1);
         playCorrect();
       } else {
+        setWrong((w) => w + 1);
         playWrong();
       }
       setSelectedAnswer(answer);
@@ -78,6 +80,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
   const resetRound = (newTable?: number) => {
     setQuestionIndex(0);
     setScore(0);
+    setWrong(0);
     setFeedback(null);
     setSelectedAnswer(null);
     setFinished(false);
@@ -160,8 +163,9 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
         <h2 className="font-display text-[44px] sm:text-[56px] underline decoration-primary underline-offset-8">
           🎉 Bravo !
         </h2>
-        <p className="text-[22px] font-semibold">
-          Tu as obtenu <span className="text-primary">{score}</span> / {multipliers.length}
+        <p className="text-[22px] font-semibold flex items-center gap-4">
+          <span className="inline-flex items-center gap-1.5">⭐ <span className="text-game-success">{score}</span></span>
+          <span className="inline-flex items-center gap-1.5">🔴 <span className="text-game-error">{wrong}</span></span>
         </p>
         <p className="text-lg text-muted-foreground">Table de {table}</p>
         <div className="flex gap-3 flex-wrap justify-center">
@@ -172,7 +176,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
             Rejouer
           </button>
           <button
-            onClick={() => { setFinished(false); setQuestionIndex(0); setScore(0); setTable(null); }}
+            onClick={() => { setFinished(false); setQuestionIndex(0); setScore(0); setWrong(0); setTable(null); }}
             className="btn-stack rounded-[18px] border border-[#EFE3C2] bg-card px-6 py-3 font-display font-semibold text-[18px] transition-all hover:scale-105"
           >
             Changer de table
@@ -199,7 +203,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <ScoreBar score={score} total={multipliers.length} onBack={onBack} modeLabel={`Table de ${table}`} />
+      <ScoreBar score={score} total={multipliers.length} onBack={onBack} modeLabel={`Table de ${table}`} wrong={wrong} />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-7 p-5 sm:p-8">
         <div
