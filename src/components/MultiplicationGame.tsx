@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
+import { Check, X, ArrowLeft } from "lucide-react";
 import ScoreBar from "./ScoreBar";
-import { ArrowLeft } from "lucide-react";
 import { playCorrect, playWrong, speakFrench } from "@/lib/sounds";
 
 function shuffle<T>(arr: T[]): T[] {
@@ -29,7 +29,6 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
   const [finished, setFinished] = useState(false);
   const [seed, setSeed] = useState(0);
 
-  // Generate the queue of multipliers (1..10) shuffled
   const multipliers = useMemo(() => {
     if (!table) return [];
     const base = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -40,7 +39,6 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
   const currentMultiplier = multipliers[questionIndex];
   const correctAnswer = table && currentMultiplier ? table * currentMultiplier : 0;
 
-  // Generate 6 unique answer options from the same table
   const options = useMemo(() => {
     if (!table || !currentMultiplier) return [];
     const allResults = Array.from({ length: 10 }, (_, i) => table * (i + 1));
@@ -87,32 +85,38 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
     if (newTable !== undefined) setTable(newTable);
   };
 
+  const miniHeader = (label: string, onBackFn: () => void) => (
+    <div>
+      <div className="flex items-center justify-between px-4 py-3 sm:px-8 sm:py-5">
+        <button
+          onClick={onBackFn}
+          className="flex items-center gap-1.5 rounded-[14px] border border-[#EFE3C2] bg-card px-3 py-2 font-bold text-[13px] transition-all hover:scale-105 active:scale-95"
+        >
+          <ArrowLeft size={14} />
+          Menu
+        </button>
+        <span className="font-display font-semibold text-[16px]">{label}</span>
+        <div className="w-16" />
+      </div>
+      <div className="mx-4 sm:mx-8 h-1.5 rounded-full bg-foreground/[0.08]" />
+    </div>
+  );
+
   // Table selection screen
   if (table === null) {
     return (
-      <div className="flex min-h-screen flex-col">
-        <div className="flex items-center justify-between px-4 py-3">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-1 rounded-xl bg-card px-3 py-2 text-sm font-semibold shadow transition-all hover:scale-105 active:scale-95"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Menu
-          </button>
-          <span className="font-display text-lg font-bold">Multiplications</span>
-          <div className="w-16" />
-        </div>
-
+      <div className="flex min-h-screen flex-col bg-background">
+        {miniHeader("Multiplications", onBack)}
         <div className="flex flex-1 flex-col items-center justify-center gap-8 p-6">
-          <h2 className="text-3xl font-bold font-display">Choisis ta table</h2>
+          <h2 className="font-display font-semibold text-[28px]">Choisis ta table</h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {AVAILABLE_TABLES.map((t) => (
               <button
                 key={t}
                 onClick={() => { setTable(t); setShowTablePreview(true); }}
-                className="flex h-28 w-28 flex-col items-center justify-center rounded-2xl bg-card shadow-lg ring-2 ring-primary/30 transition-all hover:scale-105 hover:ring-primary active:scale-95"
+                className="btn-stack flex h-28 w-28 flex-col items-center justify-center rounded-[18px] border border-[#EFE3C2] bg-card transition-all hover:scale-105"
               >
-                <span className="text-4xl font-bold font-display text-primary">×{t}</span>
+                <span className="font-display font-semibold text-4xl text-primary">×{t}</span>
                 <span className="text-xs text-muted-foreground mt-1">Table de {t}</span>
               </button>
             ))}
@@ -125,23 +129,12 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
   // Table preview screen
   if (showTablePreview) {
     return (
-      <div className="flex min-h-screen flex-col">
-        <div className="flex items-center justify-between px-4 py-3">
-          <button
-            onClick={() => { setShowTablePreview(false); setTable(null); }}
-            className="flex items-center gap-1 rounded-xl bg-card px-3 py-2 text-sm font-semibold shadow transition-all hover:scale-105 active:scale-95"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Tables
-          </button>
-          <span className="font-display text-lg font-bold">Table de {table}</span>
-          <div className="w-16" />
-        </div>
-
+      <div className="flex min-h-screen flex-col bg-background">
+        {miniHeader(`Table de ${table}`, () => { setShowTablePreview(false); setTable(null); })}
         <div className="flex flex-1 flex-col items-center justify-center gap-6 p-6">
-          <div className="grid grid-cols-1 gap-2 rounded-2xl bg-card p-6 shadow-lg ring-2 ring-primary/30">
+          <div className="grid grid-cols-1 gap-2 rounded-[28px] border border-[#EFE3C2] bg-card p-6 shadow-[0_20px_50px_rgba(31,36,64,0.08)]">
             {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-              <div key={n} className="flex items-center justify-center gap-2 text-2xl font-bold font-display sm:text-3xl">
+              <div key={n} className="flex items-center justify-center gap-2 font-display font-semibold text-2xl sm:text-3xl">
                 <span>{table}</span>
                 <span className="text-primary">×</span>
                 <span>{n}</span>
@@ -152,7 +145,7 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
           </div>
           <button
             onClick={() => setShowTablePreview(false)}
-            className="rounded-2xl bg-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95"
+            className="btn-stack rounded-[18px] bg-primary px-8 py-4 font-display font-semibold text-[18px] text-primary-foreground transition-all hover:scale-105"
           >
             Commencer ▶
           </button>
@@ -163,33 +156,30 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
 
   if (finished) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
-        <h2 className="text-4xl font-bold font-display">🎉 Bravo !</h2>
-        <p className="text-2xl font-semibold">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-6 bg-background">
+        <h2 className="font-display text-[44px] sm:text-[56px] underline decoration-primary underline-offset-8">
+          🎉 Bravo !
+        </h2>
+        <p className="text-[22px] font-semibold">
           Tu as obtenu <span className="text-primary">{score}</span> / {multipliers.length}
         </p>
         <p className="text-lg text-muted-foreground">Table de {table}</p>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap justify-center">
           <button
             onClick={() => resetRound(table)}
-            className="rounded-2xl bg-primary px-6 py-3 text-base font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95"
+            className="btn-stack rounded-[18px] bg-primary px-6 py-3 font-display font-semibold text-[18px] text-primary-foreground transition-all hover:scale-105"
           >
             Rejouer
           </button>
           <button
-            onClick={() => {
-              setFinished(false);
-              setQuestionIndex(0);
-              setScore(0);
-              setTable(null);
-            }}
-            className="rounded-2xl bg-card px-6 py-3 text-base font-bold shadow-lg ring-1 ring-border transition-all hover:scale-105 active:scale-95"
+            onClick={() => { setFinished(false); setQuestionIndex(0); setScore(0); setTable(null); }}
+            className="btn-stack rounded-[18px] border border-[#EFE3C2] bg-card px-6 py-3 font-display font-semibold text-[18px] transition-all hover:scale-105"
           >
             Changer de table
           </button>
           <button
             onClick={onBack}
-            className="rounded-2xl bg-card px-6 py-3 text-base font-bold shadow-lg ring-1 ring-border transition-all hover:scale-105 active:scale-95"
+            className="btn-stack rounded-[18px] border border-[#EFE3C2] bg-card px-6 py-3 font-display font-semibold text-[18px] transition-all hover:scale-105"
           >
             Menu
           </button>
@@ -200,60 +190,59 @@ const MultiplicationGame = ({ onBack }: MultiplicationGameProps) => {
 
   if (!currentMultiplier) return null;
 
-  return (
-    <div className="flex min-h-screen flex-col">
-      <ScoreBar
-        score={score}
-        total={multipliers.length}
-        onBack={onBack}
-        modeLabel={`Table de ${table}`}
-      />
+  const cardStyle: React.CSSProperties =
+    feedback === "correct"
+      ? { boxShadow: "0 0 0 4px hsl(var(--game-success)), 0 20px 50px rgba(31,36,64,0.08)", border: "none" }
+      : feedback === "wrong"
+      ? { boxShadow: "0 0 0 4px hsl(var(--game-error))", border: "none" }
+      : { boxShadow: "0 20px 50px rgba(31,36,64,0.08)" };
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-8 p-6">
-        {/* Question */}
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <ScoreBar score={score} total={multipliers.length} onBack={onBack} modeLabel={`Table de ${table}`} />
+
+      <div className="flex flex-1 flex-col items-center justify-center gap-7 p-5 sm:p-8">
         <div
-          className={`game-pop flex h-40 w-72 items-center justify-center rounded-3xl bg-card shadow-xl ring-4 transition-all sm:h-48 sm:w-96 ${
-            feedback === "correct"
-              ? "ring-game-success game-bounce"
-              : feedback === "wrong"
-              ? "ring-game-error game-shake"
-              : "ring-primary/30"
+          className={`game-pop flex h-40 w-72 items-center justify-center rounded-[32px] border border-[#EFE3C2] bg-card transition-all sm:h-48 sm:w-96 ${
+            feedback === "correct" ? "game-bounce" : feedback === "wrong" ? "game-shake" : ""
           }`}
+          style={cardStyle}
         >
-          <span className="text-5xl font-bold font-display sm:text-6xl">
+          <span className="font-display font-semibold text-5xl sm:text-6xl">
             {table} × {currentMultiplier}
           </span>
         </div>
 
-        {/* Feedback */}
-        <div className="h-8 text-center">
+        <div className="h-6 flex items-center justify-center">
           {feedback === "correct" && (
-            <p className="text-xl font-bold text-game-success game-pop">✅ Bravo !</p>
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-success">
+              <Check size={20} />
+              Bravo !
+            </p>
           )}
           {feedback === "wrong" && (
-            <p className="text-xl font-bold text-game-error game-pop">
-              ❌ Non ! {table} × {currentMultiplier} = {correctAnswer}
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-error">
+              <X size={20} />
+              {table} × {currentMultiplier} = {correctAnswer}
             </p>
           )}
         </div>
 
-        {/* Options */}
         <div className="grid grid-cols-3 gap-3 sm:gap-4">
           {options.map((opt) => {
             const isCorrect = opt === correctAnswer;
             const isSelected = opt === selectedAnswer;
-            let extra = "bg-card ring-1 ring-border hover:ring-primary";
-            if (feedback && isCorrect) extra = "bg-game-success/20 ring-2 ring-game-success text-game-success";
-            else if (feedback && isSelected && !isCorrect)
-              extra = "bg-game-error/20 ring-2 ring-game-error text-game-error";
-            else if (feedback) extra = "bg-card ring-1 ring-border opacity-60";
+            let extra = "border border-[#EFE3C2] bg-card text-foreground hover:border-primary";
+            if (feedback && isCorrect) extra = "bg-game-success/20 border-2 border-game-success text-game-success";
+            else if (feedback && isSelected && !isCorrect) extra = "bg-game-error/20 border-2 border-game-error text-game-error";
+            else if (feedback) extra = "border border-[#EFE3C2] bg-card opacity-60";
 
             return (
               <button
                 key={opt}
                 onClick={(e) => handleAnswer(opt, e)}
                 disabled={!!feedback}
-                className={`flex h-20 w-20 items-center justify-center rounded-2xl text-2xl font-bold shadow-md transition-all hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed sm:h-24 sm:w-24 sm:text-3xl ${extra}`}
+                className={`btn-stack flex h-20 w-20 items-center justify-center rounded-[18px] font-display font-semibold text-2xl transition-all hover:scale-105 disabled:cursor-not-allowed sm:h-24 sm:w-24 sm:text-3xl ${extra}`}
               >
                 {opt}
               </button>

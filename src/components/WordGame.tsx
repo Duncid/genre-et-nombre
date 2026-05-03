@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { Check, X } from "lucide-react";
 import { wordItems, type Gender, type NumberType, type WordItem } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
 import { playCorrect, playWrong } from "@/lib/sounds";
@@ -18,7 +19,7 @@ interface WordGameProps {
   modeLabel?: string;
 }
 
-const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => {
+const WordGame = ({ onBack, items, modeLabel = "Je lis le mot" }: WordGameProps) => {
   const source = items ?? wordItems;
   const queue = useMemo(() => shuffle(source), [source]);
   const [index, setIndex] = useState(0);
@@ -78,13 +79,15 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
   if (finished) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
-        <h2 className="text-4xl font-bold font-display">🎉 Bravo !</h2>
-        <p className="text-2xl font-semibold">
+        <h2 className="font-display text-[44px] sm:text-[56px] underline decoration-primary underline-offset-8">
+          🎉 Bravo !
+        </h2>
+        <p className="text-[22px] font-semibold">
           Tu as obtenu <span className="text-primary">{score}</span> / {queue.length}
         </p>
         <button
           onClick={onBack}
-          className="rounded-2xl bg-primary px-8 py-3 text-lg font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95"
+          className="btn-stack rounded-[18px] bg-primary px-8 py-3.5 font-display font-semibold text-[18px] text-primary-foreground transition-all hover:scale-105"
         >
           Retour au menu
         </button>
@@ -94,35 +97,21 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
 
   if (!current) return null;
 
-  // Display the word with article
   const displayWord = current.word.charAt(0).toUpperCase() + current.word.slice(1);
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <ScoreBar
-        score={score}
-        total={queue.length}
-        onBack={onBack}
-        modeLabel={modeLabel}
-      />
+    <div className="flex min-h-screen flex-col bg-background">
+      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel={modeLabel} />
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-6 p-6">
+      <div className="flex flex-1 flex-col items-center justify-center gap-6 p-5 sm:p-8">
         <div
           className={`game-pop flex h-48 w-64 items-center justify-center transition-all sm:h-56 sm:w-80 ${
-            feedback === "correct"
-              ? "game-bounce"
-              : feedback === "wrong"
-              ? "game-shake"
-              : ""
+            feedback === "correct" ? "game-bounce" : feedback === "wrong" ? "game-shake" : ""
           }`}
         >
           <span
             className={`text-4xl font-bold sm:text-5xl transition-colors ${
-              feedback === "correct"
-                ? "text-game-success"
-                : feedback === "wrong"
-                ? "text-game-error"
-                : "text-foreground"
+              feedback === "correct" ? "text-game-success" : feedback === "wrong" ? "text-game-error" : "text-foreground"
             }`}
             style={{ fontFamily: '"Belle Allure", cursive' }}
           >
@@ -130,15 +119,17 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
           </span>
         </div>
 
-        <div className="h-8 text-center">
+        <div className="h-6 flex items-center justify-center">
           {feedback === "correct" && (
-            <p className="text-xl font-bold text-game-success game-pop">
-              ✅ Correct ! C'est « {current.label} »
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-success">
+              <Check size={20} />
+              C'est « {current.label} » — bravo !
             </p>
           )}
           {feedback === "wrong" && (
-            <p className="text-xl font-bold text-game-error game-pop">
-              ❌ Non ! C'est « {current.label} » ({current.gender}, {current.number})
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-error">
+              <X size={20} />
+              C'est « {current.label} » ({current.gender}, {current.number})
             </p>
           )}
         </div>
@@ -150,9 +141,9 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
             <button
               onClick={() => handleGender("féminin")}
               disabled={!!feedback}
-              className={`rounded-2xl px-8 py-3 text-lg font-bold shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60 ${
+              className={`btn-stack rounded-[18px] px-8 py-3 font-display font-semibold text-[18px] transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 ${
                 genderAnswer === "féminin"
-                  ? "bg-game-feminine text-primary-foreground ring-2 ring-game-feminine ring-offset-2"
+                  ? "bg-game-feminine text-white"
                   : "bg-game-feminine/30 text-game-feminine"
               }`}
             >
@@ -161,9 +152,9 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
             <button
               onClick={() => handleGender("masculin")}
               disabled={!!feedback}
-              className={`rounded-2xl px-8 py-3 text-lg font-bold shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60 ${
+              className={`btn-stack rounded-[18px] px-8 py-3 font-display font-semibold text-[18px] transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 ${
                 genderAnswer === "masculin"
-                  ? "bg-game-masculine text-primary-foreground ring-2 ring-game-masculine ring-offset-2"
+                  ? "bg-game-masculine text-white"
                   : "bg-game-masculine/30 text-game-masculine"
               }`}
             >
@@ -179,9 +170,9 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
             <button
               onClick={() => handleNumber("singulier")}
               disabled={!!feedback}
-              className={`rounded-2xl px-8 py-3 text-lg font-bold shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60 ${
+              className={`btn-stack rounded-[18px] px-8 py-3 font-display font-semibold text-[18px] transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 ${
                 numberAnswer === "singulier"
-                  ? "bg-game-singular text-primary-foreground ring-2 ring-game-singular ring-offset-2"
+                  ? "bg-game-singular text-white"
                   : "bg-game-singular/30 text-game-singular"
               }`}
             >
@@ -190,9 +181,9 @@ const WordGame = ({ onBack, items, modeLabel = "Mode Mots" }: WordGameProps) => 
             <button
               onClick={() => handleNumber("pluriel")}
               disabled={!!feedback}
-              className={`rounded-2xl px-8 py-3 text-lg font-bold shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60 ${
+              className={`btn-stack rounded-[18px] px-8 py-3 font-display font-semibold text-[18px] transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 ${
                 numberAnswer === "pluriel"
-                  ? "bg-game-plural text-primary-foreground ring-2 ring-game-plural ring-offset-2"
+                  ? "bg-game-plural text-white"
                   : "bg-game-plural/30 text-game-plural"
               }`}
             >

@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { Check, X } from "lucide-react";
 import ScoreBar from "./ScoreBar";
 import { playCorrect, playWrong } from "@/lib/sounds";
 import { generateAdjectiveExercises, type AdjectiveExerciseItem } from "@/data/adjectiveData";
@@ -76,13 +77,15 @@ const AdjectiveChoiceGame = ({ onBack }: Props) => {
   if (finished) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
-        <h2 className="text-4xl font-bold font-display">🎉 Bravo !</h2>
-        <p className="text-2xl font-semibold">
+        <h2 className="font-display text-[44px] sm:text-[56px] underline decoration-primary underline-offset-8">
+          🎉 Bravo !
+        </h2>
+        <p className="text-[22px] font-semibold">
           Tu as obtenu <span className="text-primary">{score}</span> / {queue.length}
         </p>
         <button
           onClick={onBack}
-          className="rounded-2xl bg-primary px-8 py-3 text-lg font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95"
+          className="btn-stack rounded-[18px] bg-primary px-8 py-3.5 font-display font-semibold text-[18px] text-primary-foreground transition-all hover:scale-105"
         >
           Retour au menu
         </button>
@@ -95,24 +98,23 @@ const AdjectiveChoiceGame = ({ onBack }: Props) => {
   const [before, after] = current.template.split("{adj}");
   const correctWord = current.adjective[correctKey(current)];
 
-  return (
-    <div className="flex min-h-screen flex-col">
-      <ScoreBar
-        score={score}
-        total={queue.length}
-        onBack={onBack}
-        modeLabel="Choisis l'adjectif"
-      />
+  const cardStyle: React.CSSProperties =
+    feedback === "correct"
+      ? { boxShadow: "0 0 0 4px hsl(var(--game-success)), 0 20px 50px rgba(31,36,64,0.08)", border: "none" }
+      : feedback === "wrong"
+      ? { boxShadow: "0 0 0 4px hsl(var(--game-error))", border: "none" }
+      : { boxShadow: "0 20px 50px rgba(31,36,64,0.08)" };
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-8 p-6">
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Complète la phrase" />
+
+      <div className="flex flex-1 flex-col items-center justify-center gap-7 p-5 sm:p-8">
         <div
-          className={`game-pop flex min-h-32 max-w-2xl items-center justify-center rounded-3xl bg-card px-6 py-8 shadow-xl ring-4 transition-all ${
-            feedback === "correct"
-              ? "ring-game-success game-bounce"
-              : feedback === "wrong"
-              ? "ring-game-error game-shake"
-              : "ring-transparent"
+          className={`game-pop flex min-h-32 max-w-2xl items-center justify-center rounded-[32px] border border-[#EFE3C2] bg-card px-6 py-8 transition-all ${
+            feedback === "correct" ? "game-bounce" : feedback === "wrong" ? "game-shake" : ""
           }`}
+          style={cardStyle}
         >
           <span
             className="text-3xl font-bold sm:text-4xl text-foreground text-center"
@@ -134,13 +136,17 @@ const AdjectiveChoiceGame = ({ onBack }: Props) => {
           </span>
         </div>
 
-        <div className="h-8 text-center">
+        <div className="h-6 flex items-center justify-center">
           {feedback === "correct" && (
-            <p className="text-xl font-bold text-game-success game-pop">✅ Bravo !</p>
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-success">
+              <Check size={20} />
+              Bravo !
+            </p>
           )}
           {feedback === "wrong" && (
-            <p className="text-xl font-bold text-game-error game-pop">
-              ❌ La bonne réponse était « {correctWord} »
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-error">
+              <X size={20} />
+              La bonne réponse était « {correctWord} »
             </p>
           )}
         </div>
@@ -154,12 +160,12 @@ const AdjectiveChoiceGame = ({ onBack }: Props) => {
                 key={opt.key}
                 onClick={(e) => handleChoose(opt.key, e)}
                 disabled={!!feedback}
-                className={`rounded-2xl px-6 py-4 text-xl font-bold shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                className={`btn-stack rounded-[18px] px-6 py-4 font-display font-semibold text-[18px] transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-80 ${
                   isCorrect
-                    ? "bg-game-success text-primary-foreground"
+                    ? "bg-game-success text-white"
                     : isSelected && feedback === "wrong"
-                    ? "bg-game-error text-primary-foreground"
-                    : "bg-card text-foreground ring-1 ring-primary/20"
+                    ? "bg-game-error text-white"
+                    : "bg-card text-foreground border border-[#EFE3C2]"
                 }`}
                 style={{ fontFamily: '"Belle Allure", cursive' }}
               >

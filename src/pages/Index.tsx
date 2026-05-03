@@ -19,10 +19,10 @@ const Index = () => {
   if (mode === "number") return <NumberGame onBack={() => setMode("menu")} />;
   if (mode === "mix") return <MixGame onBack={() => setMode("menu")} />;
   if (mode === "words") return <WordGame onBack={() => setMode("menu")} />;
-  if (mode === "adjectives") return <WordGame onBack={() => setMode("menu")} items={adjectiveWordItems} modeLabel="Mots & Adjectifs" />;
+  if (mode === "adjectives") return <WordGame onBack={() => setMode("menu")} items={adjectiveWordItems} modeLabel="Lis et classe" />;
   if (mode === "adjective-choice") return <AdjectiveChoiceGame onBack={() => setMode("menu")} />;
   if (mode === "sentence") return <SentenceGame onBack={() => setMode("menu")} />;
-  if (mode === "sentence-advanced") return <SentenceGame onBack={() => setMode("menu")} items={advancedSentenceItems} roles={advancedRoles} modeLabel="Structure avancée" />;
+  if (mode === "sentence-advanced") return <SentenceGame onBack={() => setMode("menu")} items={advancedSentenceItems} roles={advancedRoles} modeLabel="Je suis expert !" />;
   if (mode === "multiplication") return <MultiplicationGame onBack={() => setMode("menu")} />;
   return <GameMenu onSelectMode={setMode} />;
 };

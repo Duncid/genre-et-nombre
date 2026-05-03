@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { Check, X } from "lucide-react";
 import { numberItems, type NumberItem } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
 import { playCorrect, playWrong } from "@/lib/sounds";
@@ -52,13 +53,15 @@ const NumberGame = ({ onBack }: NumberGameProps) => {
   if (finished) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
-        <h2 className="text-4xl font-bold font-display">🎉 Bravo !</h2>
-        <p className="text-2xl font-semibold">
+        <h2 className="font-display text-[44px] sm:text-[56px] underline decoration-primary underline-offset-8">
+          🎉 Bravo !
+        </h2>
+        <p className="text-[22px] font-semibold">
           Tu as obtenu <span className="text-primary">{score}</span> / {queue.length}
         </p>
         <button
           onClick={onBack}
-          className="rounded-2xl bg-primary px-8 py-3 text-lg font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95"
+          className="btn-stack rounded-[18px] bg-primary px-8 py-3.5 font-display font-semibold text-[18px] text-primary-foreground transition-all hover:scale-105"
         >
           Retour au menu
         </button>
@@ -68,41 +71,41 @@ const NumberGame = ({ onBack }: NumberGameProps) => {
 
   if (!current) return null;
 
-  return (
-    <div className="flex min-h-screen flex-col">
-      <ScoreBar
-        score={score}
-        total={queue.length}
-        onBack={onBack}
-        modeLabel="Singulier / Pluriel"
-      />
+  const cardStyle: React.CSSProperties =
+    feedback === "correct"
+      ? { boxShadow: "0 0 0 4px hsl(var(--game-success)), 0 20px 50px rgba(31,36,64,0.08)", border: "none" }
+      : feedback === "wrong"
+      ? { boxShadow: "0 0 0 4px hsl(var(--game-error))", border: "none" }
+      : { boxShadow: "0 20px 50px rgba(31,36,64,0.08)" };
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-8 p-6">
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Combien ?" />
+
+      <div className="flex flex-1 flex-col items-center justify-center gap-7 p-5 sm:p-8">
         <div
-          className={`game-pop relative flex h-56 w-56 items-center justify-center rounded-3xl bg-card shadow-xl ring-4 transition-all sm:h-72 sm:w-72 ${
-            feedback === "correct"
-              ? "ring-game-success game-bounce"
-              : feedback === "wrong"
-              ? "ring-game-error game-shake"
-              : "ring-transparent"
+          key={current.name}
+          className={`game-pop flex h-[220px] w-[220px] items-center justify-center rounded-[32px] border border-[#EFE3C2] bg-card p-[22px] transition-all sm:h-[280px] sm:w-[280px] ${
+            feedback === "correct" ? "game-bounce" : feedback === "wrong" ? "game-shake" : ""
           }`}
+          style={cardStyle}
         >
-          <img
-            src={current.image}
-            alt={current.name}
-            className="h-40 w-40 object-contain sm:h-56 sm:w-56"
-          />
+          <img src={current.image} alt={current.name} className="h-40 w-40 object-contain sm:h-56 sm:w-56" />
         </div>
 
-        <div className="h-8 text-center">
+        <p className="font-display font-semibold text-[22px] sm:text-[28px]">Il y en a combien ?</p>
+
+        <div className="h-6 flex items-center justify-center gap-2">
           {feedback === "correct" && (
-            <p className="text-xl font-bold text-game-success game-pop">
-              ✅ Correct ! C'est « {current.label} »
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-success">
+              <Check size={20} />
+              C'est « {current.label} » — bravo !
             </p>
           )}
           {feedback === "wrong" && (
-            <p className="text-xl font-bold text-game-error game-pop">
-              ❌ Non ! C'est « {current.label} » ({current.number})
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-error">
+              <X size={20} />
+              C'est « {current.label} » ({current.number})
             </p>
           )}
         </div>
@@ -111,14 +114,14 @@ const NumberGame = ({ onBack }: NumberGameProps) => {
           <button
             onClick={() => handleAnswer("singulier")}
             disabled={!!feedback}
-            className="rounded-2xl bg-game-singular px-10 py-4 text-xl font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60"
+            className="btn-stack rounded-[18px] bg-game-singular px-7 py-3.5 font-display font-semibold text-[18px] tracking-[0.2px] text-white transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 sm:px-9 sm:py-4 sm:text-[22px]"
           >
             Singulier
           </button>
           <button
             onClick={() => handleAnswer("pluriel")}
             disabled={!!feedback}
-            className="rounded-2xl bg-game-plural px-10 py-4 text-xl font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60"
+            className="btn-stack rounded-[18px] bg-game-plural px-7 py-3.5 font-display font-semibold text-[18px] tracking-[0.2px] text-white transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 sm:px-9 sm:py-4 sm:text-[22px]"
           >
             Pluriel
           </button>

@@ -137,3 +137,22 @@
   0% { transform: scale(0.8); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .btn-stack {
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12);
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .btn-stack:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.12);
+  }
+}
