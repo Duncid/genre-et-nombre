@@ -1,13 +1,14 @@
-import { ArrowLeft, Star } from "lucide-react";
+import { ArrowLeft, Star, Circle } from "lucide-react";
 
 interface ScoreBarProps {
   score: number;
   total: number;
   onBack: () => void;
   modeLabel: string;
+  wrong?: number;
 }
 
-const ScoreBar = ({ score, total, onBack, modeLabel }: ScoreBarProps) => {
+const ScoreBar = ({ score, total, onBack, modeLabel, wrong }: ScoreBarProps) => {
   const progress = total > 0 ? (score / total) * 100 : 0;
 
   return (
@@ -23,7 +24,15 @@ const ScoreBar = ({ score, total, onBack, modeLabel }: ScoreBarProps) => {
         <span className="font-display font-semibold text-[16px]">{modeLabel}</span>
         <div className="flex items-center gap-1.5 rounded-[14px] border border-[#EFE3C2] bg-card px-3.5 py-2">
           <Star size={14} className="fill-game-singular text-game-singular" />
-          <span className="font-display font-semibold text-[16px]">{score}/{total}</span>
+          <span className="font-display font-semibold text-[16px]">{score}</span>
+          {typeof wrong === "number" ? (
+            <>
+              <Circle size={10} className="ml-1.5 fill-game-error text-game-error" />
+              <span className="font-display font-semibold text-[16px]">{wrong}</span>
+            </>
+          ) : (
+            <span className="font-display font-semibold text-[16px]">/{total}</span>
+          )}
         </div>
       </div>
       <div className="mx-4 sm:mx-8 h-1.5 rounded-full bg-foreground/[0.08]">
