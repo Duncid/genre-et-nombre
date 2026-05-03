@@ -96,9 +96,23 @@
     @apply border-border;
   }
 
+  html, body {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    overscroll-behavior: none;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Nunito', sans-serif;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  input, textarea, [contenteditable="true"] {
+    -webkit-user-select: text;
+    user-select: text;
   }
 
   h1, h2, h3, h4, h5, h6 {
