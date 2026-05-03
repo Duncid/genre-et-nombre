@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { BookOpen, Users, Shuffle, Type, PenLine, Layers, GraduationCap, X, Sparkles, Languages, Calculator } from "lucide-react";
 
 type Mode = "gender" | "number" | "mix" | "words" | "adjectives" | "adjective-choice" | "sentence" | "sentence-advanced" | "multiplication";
