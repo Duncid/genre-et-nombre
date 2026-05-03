@@ -161,7 +161,7 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
   const scrollTo = (i: number) => api?.scrollTo(i);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-6 py-6">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-6 px-0 py-6">
       <header className="px-6 text-center">
         <h1 className="text-3xl sm:text-4xl font-bold font-display">Choisis une catégorie</h1>
         <p className="text-sm text-muted-foreground mt-1">Glisse pour explorer ✨</p>
@@ -175,29 +175,23 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
         <CarouselContent className="-ml-3">
           {categories.map((cat, idx) => {
             const isActive = idx === selectedIndex;
-            const CatIcon = cat.CatIcon;
             return (
               <CarouselItem
                 key={cat.id}
                 className="pl-3 basis-[85%] sm:basis-[70%] md:basis-[55%] lg:basis-[45%]"
               >
                 <div
-                  className={`rounded-3xl bg-gradient-to-br ${cat.bgGradient} p-5 sm:p-6 shadow-xl ring-1 ring-border transition-all duration-300 ${
-                    isActive ? "scale-100 opacity-100" : "scale-90 opacity-60"
+                  className={`rounded-3xl bg-card p-5 sm:p-6 shadow-lg ring-1 ring-border transition-all duration-300 ${
+                    isActive ? "scale-100 opacity-100" : "scale-95 opacity-60"
                   }`}
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-card shadow-md">
-                      <CatIcon className={`h-6 w-6 ${cat.accent}`} />
-                    </div>
-                    <div>
-                      <h2 className="text-lg sm:text-xl font-bold font-display leading-tight">
-                        {cat.emoji} {cat.title}
-                      </h2>
-                      <p className="text-xs text-muted-foreground">
-                        {cat.modes.length} {cat.modes.length > 1 ? "exercices" : "exercice"}
-                      </p>
-                    </div>
+                  <div className="mb-4">
+                    <h2 className="text-lg sm:text-xl font-bold font-display leading-tight">
+                      {cat.emoji} {cat.title}
+                    </h2>
+                    <p className="text-xs text-muted-foreground">
+                      {cat.modes.length} {cat.modes.length > 1 ? "exercices" : "exercice"}
+                    </p>
                   </div>
 
                   <div className="flex flex-col gap-2.5">
