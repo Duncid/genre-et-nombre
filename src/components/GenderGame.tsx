@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
+import { Check, X } from "lucide-react";
 import { genderItems, type GenderItem } from "@/data/gameData";
 import ScoreBar from "./ScoreBar";
 import { playCorrect, playWrong } from "@/lib/sounds";
@@ -52,13 +53,15 @@ const GenderGame = ({ onBack }: GenderGameProps) => {
   if (finished) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
-        <h2 className="text-4xl font-bold font-display">🎉 Bravo !</h2>
-        <p className="text-2xl font-semibold">
+        <h2 className="font-display text-[44px] sm:text-[56px] underline decoration-primary underline-offset-8">
+          🎉 Bravo !
+        </h2>
+        <p className="text-[22px] font-semibold">
           Tu as obtenu <span className="text-primary">{score}</span> / {queue.length}
         </p>
         <button
           onClick={onBack}
-          className="rounded-2xl bg-primary px-8 py-3 text-lg font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95"
+          className="btn-stack rounded-[18px] bg-primary px-8 py-3.5 font-display font-semibold text-[18px] text-primary-foreground transition-all hover:scale-105"
         >
           Retour au menu
         </button>
@@ -68,60 +71,61 @@ const GenderGame = ({ onBack }: GenderGameProps) => {
 
   if (!current) return null;
 
-  return (
-    <div className="flex min-h-screen flex-col">
-      <ScoreBar
-        score={score}
-        total={queue.length}
-        onBack={onBack}
-        modeLabel="Féminin / Masculin"
-      />
+  const cardStyle: React.CSSProperties =
+    feedback === "correct"
+      ? { boxShadow: "0 0 0 4px hsl(var(--game-success)), 0 20px 50px rgba(31,36,64,0.08)", border: "none" }
+      : feedback === "wrong"
+      ? { boxShadow: "0 0 0 4px hsl(var(--game-error))", border: "none" }
+      : { boxShadow: "0 20px 50px rgba(31,36,64,0.08)" };
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-8 p-6">
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <ScoreBar score={score} total={queue.length} onBack={onBack} modeLabel="Féminin / Masculin" />
+
+      <div className="flex flex-1 flex-col items-center justify-center gap-7 p-5 sm:p-8">
         {/* Image card */}
         <div
-          className={`game-pop relative flex h-56 w-56 items-center justify-center rounded-3xl bg-card shadow-xl ring-4 transition-all sm:h-72 sm:w-72 ${
-            feedback === "correct"
-              ? "ring-game-success game-bounce"
-              : feedback === "wrong"
-              ? "ring-game-error game-shake"
-              : "ring-transparent"
+          key={current.name}
+          className={`game-pop flex h-[220px] w-[220px] items-center justify-center rounded-[32px] border border-[#EFE3C2] bg-card p-[22px] transition-all sm:h-[280px] sm:w-[280px] ${
+            feedback === "correct" ? "game-bounce" : feedback === "wrong" ? "game-shake" : ""
           }`}
+          style={cardStyle}
         >
-          <img
-            src={current.image}
-            alt={current.name}
-            className="h-40 w-40 object-contain sm:h-56 sm:w-56"
-          />
+          <img src={current.image} alt={current.name} className="h-40 w-40 object-contain sm:h-56 sm:w-56" />
         </div>
 
-        {/* Feedback text */}
-        <div className="h-8 text-center">
+        {/* Question */}
+        <p className="font-display font-semibold text-[22px] sm:text-[28px]">Cette image, c'est…</p>
+
+        {/* Feedback row */}
+        <div className="h-6 flex items-center justify-center gap-2">
           {feedback === "correct" && (
-            <p className="text-xl font-bold text-game-success game-pop">
-              ✅ Correct ! C'est {current.article} {current.name}
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-success">
+              <Check size={20} className="text-game-success" />
+              C'est {current.article} {current.name} — bravo !
             </p>
           )}
           {feedback === "wrong" && (
-            <p className="text-xl font-bold text-game-error game-pop">
-              ❌ Non ! C'est {current.article} {current.name} ({current.gender})
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-error">
+              <X size={20} className="text-game-error" />
+              C'est {current.article} {current.name} ({current.gender})
             </p>
           )}
         </div>
 
-        {/* Buttons */}
+        {/* Choice buttons */}
         <div className="flex gap-5">
           <button
             onClick={() => handleAnswer("féminin")}
             disabled={!!feedback}
-            className="rounded-2xl bg-game-feminine px-10 py-4 text-xl font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60"
+            className="btn-stack rounded-[18px] bg-game-feminine px-7 py-3.5 font-display font-semibold text-[18px] tracking-[0.2px] text-white transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 sm:px-9 sm:py-4 sm:text-[22px]"
           >
             Féminin
           </button>
           <button
             onClick={() => handleAnswer("masculin")}
             disabled={!!feedback}
-            className="rounded-2xl bg-game-masculine px-10 py-4 text-xl font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60"
+            className="btn-stack rounded-[18px] bg-game-masculine px-7 py-3.5 font-display font-semibold text-[18px] tracking-[0.2px] text-white transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 sm:px-9 sm:py-4 sm:text-[22px]"
           >
             Masculin
           </button>

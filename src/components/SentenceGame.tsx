@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
+import { Check, X } from "lucide-react";
 import ScoreBar from "./ScoreBar";
 import { playCorrect, playWrong } from "@/lib/sounds";
 import {
@@ -39,7 +40,6 @@ const SentenceGame = ({
   const [totalWords, setTotalWords] = useState(0);
   const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
   const [finished, setFinished] = useState(false);
-  // Track completed words in current sentence
   const [completedWords, setCompletedWords] = useState<Map<number, "correct" | "wrong">>(new Map());
 
   const currentSentence = queue[sentenceIndex];
@@ -72,7 +72,6 @@ const SentenceGame = ({
 
         const nextWordIdx = wordIndex + 1;
         if (nextWordIdx >= currentSentence.words.length) {
-          // Move to next sentence
           const nextSentenceIdx = sentenceIndex + 1;
           if (nextSentenceIdx >= queue.length) {
             setFinished(true);
@@ -92,13 +91,15 @@ const SentenceGame = ({
   if (finished) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
-        <h2 className="text-4xl font-bold font-display">🎉 Bravo !</h2>
-        <p className="text-2xl font-semibold">
+        <h2 className="font-display text-[44px] sm:text-[56px] underline decoration-primary underline-offset-8">
+          🎉 Bravo !
+        </h2>
+        <p className="text-[22px] font-semibold">
           Tu as obtenu <span className="text-primary">{score}</span> / {totalQuestions}
         </p>
         <button
           onClick={onBack}
-          className="rounded-2xl bg-primary px-8 py-3 text-lg font-bold text-primary-foreground shadow-lg transition-all hover:scale-105 active:scale-95"
+          className="btn-stack rounded-[18px] bg-primary px-8 py-3.5 font-display font-semibold text-[18px] text-primary-foreground transition-all hover:scale-105"
         >
           Retour au menu
         </button>
@@ -109,15 +110,10 @@ const SentenceGame = ({
   if (!currentSentence || !currentWord) return null;
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <ScoreBar
-        score={score}
-        total={totalQuestions}
-        onBack={onBack}
-        modeLabel={modeLabel}
-      />
+    <div className="flex min-h-screen flex-col bg-background">
+      <ScoreBar score={score} total={totalQuestions} onBack={onBack} modeLabel={modeLabel} />
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-8 p-6">
+      <div className="flex flex-1 flex-col items-center justify-center gap-8 p-5 sm:p-8">
         {/* Sentence display */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           {currentSentence.words.map((w, i) => {
@@ -152,20 +148,21 @@ const SentenceGame = ({
         </div>
 
         {/* Feedback */}
-        <div className="h-8 text-center">
+        <div className="h-6 flex items-center justify-center">
           {feedback === "correct" && (
-            <p className="text-xl font-bold text-game-success game-pop">
-              ✅ Correct ! « {currentWord.word} » est un {currentWord.role}
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-success">
+              <Check size={20} />
+              « {currentWord.word} » est un {currentWord.role}
             </p>
           )}
           {feedback === "wrong" && (
-            <p className="text-xl font-bold text-game-error game-pop">
-              ❌ Non ! « {currentWord.word} » est un {currentWord.role}
+            <p className="game-pop flex items-center gap-1.5 font-display font-semibold text-[18px] text-game-error">
+              <X size={20} />
+              « {currentWord.word} » est un {currentWord.role}
             </p>
           )}
         </div>
 
-        {/* Instruction */}
         <p className="text-sm font-semibold text-muted-foreground">
           Quel est le rôle de « <span className="text-foreground">{currentWord.word}</span> » ?
         </p>
@@ -179,7 +176,7 @@ const SentenceGame = ({
                 key={role}
                 onClick={() => handleChoice(role)}
                 disabled={!!feedback}
-                className={`rounded-2xl px-6 py-3 text-base font-bold shadow-md transition-all hover:scale-105 hover:brightness-110 active:scale-95 disabled:opacity-60 ${colors.bg} ${colors.text} ring-1 ${colors.ring}/30 hover:${colors.ring}`}
+                className={`btn-stack rounded-[18px] px-6 py-3 font-display font-semibold text-[16px] transition-all hover:scale-105 disabled:pointer-events-none disabled:opacity-60 ${colors.bg} ${colors.text}`}
               >
                 {role.charAt(0).toUpperCase() + role.slice(1)}
               </button>
