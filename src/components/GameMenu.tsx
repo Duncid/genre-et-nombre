@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { BookOpen, Users, Shuffle, Type, PenLine, Layers, GraduationCap, X, Sparkles, Languages, Calculator } from "lucide-react";
 
 type Mode = "gender" | "number" | "mix" | "words" | "adjectives" | "adjective-choice" | "sentence" | "sentence-advanced" | "multiplication";
@@ -143,26 +143,22 @@ const categories: Category[] = [
 ];
 
 const GameMenu = ({ onSelectMode }: GameMenuProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "center",
-    loop: false,
-    containScroll: "trimSnaps",
-  });
+  const [api, setApi] = useState<CarouselApi>();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
-    if (!emblaApi) return;
-    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    if (!api) return;
+    const onSelect = () => setSelectedIndex(api.selectedScrollSnap());
     onSelect();
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
     return () => {
-      emblaApi.off("select", onSelect);
-      emblaApi.off("reInit", onSelect);
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
     };
-  }, [emblaApi]);
+  }, [api]);
 
-  const scrollTo = (i: number) => emblaApi?.scrollTo(i);
+  const scrollTo = (i: number) => api?.scrollTo(i);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-6 py-6">
@@ -171,15 +167,19 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
         <p className="text-sm text-muted-foreground mt-1">Glisse pour explorer ✨</p>
       </header>
 
-      <div className="w-full overflow-hidden" ref={emblaRef}>
-        <div className="flex touch-pan-y">
+      <Carousel
+        setApi={setApi}
+        opts={{ align: "center", loop: false, containScroll: "trimSnaps" }}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-3">
           {categories.map((cat, idx) => {
             const isActive = idx === selectedIndex;
             const CatIcon = cat.CatIcon;
             return (
-              <div
+              <CarouselItem
                 key={cat.id}
-                className="shrink-0 grow-0 basis-[85%] sm:basis-[70%] md:basis-[55%] lg:basis-[45%] px-3"
+                className="pl-3 basis-[85%] sm:basis-[70%] md:basis-[55%] lg:basis-[45%]"
               >
                 <div
                   className={`rounded-3xl bg-gradient-to-br ${cat.bgGradient} p-5 sm:p-6 shadow-xl ring-1 ring-border transition-all duration-300 ${
@@ -222,11 +222,11 @@ const GameMenu = ({ onSelectMode }: GameMenuProps) => {
                     })}
                   </div>
                 </div>
-              </div>
+              </CarouselItem>
             );
           })}
-        </div>
-      </div>
+        </CarouselContent>
+      </Carousel>
 
       <div className="flex items-center gap-2">
         {categories.map((cat, i) => (
