@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
-import { BookOpen, Users, Shuffle, Type, PenLine, Layers, GraduationCap, X, Sparkles, Languages, Calculator, ChevronRight } from "lucide-react";
+import { BookOpen, Users, Shuffle, Type, PenLine, Layers, GraduationCap, X, Sparkles, Languages, Calculator, ChevronRight, MessageCircleQuestion } from "lucide-react";
 
-type Mode = "gender" | "number" | "mix" | "words" | "adjectives" | "adjective-choice" | "sentence" | "sentence-advanced" | "multiplication";
+type Mode = "gender" | "number" | "mix" | "words" | "adjectives" | "adjective-choice" | "sentence" | "sentence-advanced" | "question-guess" | "multiplication";
 
 interface GameMenuProps {
   onSelectMode: (mode: Mode) => void;
@@ -34,6 +34,7 @@ const TONES: Record<Mode, string> = {
   "adjective-choice": "hsl(var(--game-feminine))",
   sentence: "hsl(var(--game-singular))",
   "sentence-advanced": "hsl(var(--game-plural))",
+  "question-guess": "hsl(var(--game-success))",
   multiplication: "hsl(var(--primary))",
 };
 
@@ -62,6 +63,7 @@ const categories: Category[] = [
       { mode: "adjective-choice", title: "Complète la phrase", subtitle: "Quelle forme de l'adjectif ?", Icon: Sparkles, tone: TONES["adjective-choice"] },
       { mode: "sentence", title: "Les rôles des mots", subtitle: "Déterminant · adjectif · nom", Icon: Layers, tone: TONES.sentence },
       { mode: "sentence-advanced", title: "Je suis expert !", subtitle: "Tous les rôles de la phrase", Icon: GraduationCap, tone: TONES["sentence-advanced"] },
+      { mode: "question-guess", title: "Devine la question", subtitle: "À l'oral avec un parent", Icon: MessageCircleQuestion, tone: TONES["question-guess"] },
     ],
   },
   {
